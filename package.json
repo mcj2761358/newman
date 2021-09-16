@@ -1,0 +1,13 @@
+{
+  "name": "checkStorageUsedNum",
+  "version": "1.0.0",
+  "description": "",
+  "main": "checkStorageUsedNum.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "checkUsedNum": "node checkStorageUsedNum.js"
+  },
+
+  "author": "",
+  "license": "ISC"
+}

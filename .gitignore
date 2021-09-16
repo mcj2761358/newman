@@ -1,0 +1,9 @@
+node_moudles
+node_moudles/*
+*~
+*.idea
+*.iml
+*.eml
+.project
+.settings
+.classpath
