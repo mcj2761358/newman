@@ -15,5 +15,8 @@
   },
   "cookie": "JSESSIONID=NTYyMmI3MjYtNjcyYS00MjQ2LTg5ZjEtZTIyZjBjZWQzMjlk",
   "domain": "https://www.sqzone.com/launa",
-  "needFix": true
+  "needFix": true,
+  "logOutPut": "output.log",
+  "clearFile": true,
+  "startShopId": null
 }

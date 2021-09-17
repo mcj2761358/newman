@@ -1,5 +1,5 @@
 const fs = require('fs')
-const DEFAULT_CONFIG_PATH = '/config/config.json'
+const DEFAULT_CONFIG_PATH = '/config/config_2.json'
 var configReader = {
     read: function (configFilePath) {
         if (!configFilePath) {
