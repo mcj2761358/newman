@@ -9,3 +9,4 @@ output/*
 .project
 .settings
 .classpath
+output.log

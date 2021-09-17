@@ -1,5 +1,5 @@
 const fs = require('fs')
-const DEFAULT_CONFIG_PATH = '/config/config_1.json'
+const DEFAULT_CONFIG_PATH = '/config/config.json'
 var configReader = {
     read: function (configFilePath) {
         if (!configFilePath) {
@@ -8,7 +8,7 @@ var configReader = {
         const configStr = fs.readFileSync(configFilePath, 'utf-8')
         const config = configStr ? JSON.parse(configStr) : {}
         handleCommand(config)
-        return config
+        return config;
     }
 
 }

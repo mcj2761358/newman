@@ -1,10 +1,25 @@
+var consoleLogger = require('../util/consoleLogger')
 var handler = {
     handle: function(err, args, config) {
-        // var str = '正在执行: ' + args.request.body.raw;
-        // if (err) {
-        //     str = str + " 报错, " + err
-        // }
-        // console.info(str)
+        const param = args.request.body.raw
+        if(config.startShopId && param) {
+            if(!param) {
+                throw ('newmanBeforeRequestHandler: param is null')
+            }
+            const shopId = parseInt(param.substr(1, param.length - 1))
+
+            if(config.startShopId > shopId) {
+                consoleLogger.success('跳过执行: ' + shopId)
+                throw ('newmanBeforeRequestHandler: 跳过执行' + shopId)
+            }
+        }
+
+        var str = '正在执行 ' + param
+        if (err) {
+            consoleLogger.error(str  + " 报错, " + err)
+        } else {
+            consoleLogger.success(str)
+        }
     }
 
 }

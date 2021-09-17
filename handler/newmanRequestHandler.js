@@ -1,7 +1,8 @@
-const fs = require('fs');
 const util = require('util');
 const request = require('request');
 const consoleLogger = require('../util/consoleLogger')
+const fileAppender = require('../util/fileAppender')
+const fileLogger = require('../util/fileLogger')
 
 // 格式化输出
 const urlFormat = '%s/system/setShopStorageProfile?shopId=%s&profileKey=%s&profileValue=%s';
@@ -31,6 +32,10 @@ function getBizType(str) {
 
 function handlerCheckFail(res, config) {
     const errorMsg = res.errorMsg;
+    if(!errorMsg) {
+        consoleLogger.error("errorMsg is null")
+        return;
+    }
     const checkFailMsgList = errorMsg.split('\n');
     const needFix = config.needFix
     for (const index in checkFailMsgList) {
@@ -39,7 +44,7 @@ function handlerCheckFail(res, config) {
             continue;
         }
         const formatMsg = formatCheckFailMsg(checkFailMsg);
-        appendFile(config.errorLogPath, formatMsg);
+        fileAppender.append(config.errorLogPath, formatMsg);
         // const output = getOutPut(formatMsg, config)
         // appendFile(config.outputPath, output);
         // 修复数据
@@ -62,21 +67,6 @@ function formatCheckFailMsg(checkFailMsg) {
     return checkFailMsg.replace(/\s/g, '');
 }
 
-/**
- * 文件追加
- * @param filepath
- * @param msg
- */
-function appendFile(filepath, msg) {
-    if (!filepath) {
-        return
-    }
-    fs.appendFile(filepath, msg + '\n', function (error) {
-        if (error) {
-            console.error('写' + filepath + '出错: ' + error);
-        }
-    })
-}
 
 /**
  * 生成输出信息,
@@ -100,7 +90,7 @@ function getOutPut(msg, config) {
 function fix(msg, config) {
     const match = msg.match(/(-?\d+)/g);
     const url = util.format(urlFormat, config.domain, match[0], getBizType(msg), match[2]);
-    appendFile(config.outputPath, url)
+    fileAppender.append(config.outputPath, url)
     const option = {
         'url': url,
         'method': 'GET',
@@ -151,9 +141,9 @@ var handler = {
 
         // 校验出错打印红色，校验成功打印绿色
         if(res.success === true) {
-            consoleLogger.success( '正在执行: ' + args.request.body.raw + ': 校验通过')
+            consoleLogger.success( args.request.body.raw + '执行结果: 校验通过')
         } else {
-            consoleLogger.error( '正在执行: ' + args.request.body.raw + ': 校验失败')
+            consoleLogger.error( args.request.body.raw + '执行结果: 校验失败')
             // 失败处理
             handlerCheckFail(res, config)
         }

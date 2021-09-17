@@ -8,6 +8,22 @@ function truncateFile(filePath) {
 
 }
 
+function createFileIfDontExist(filePath) {
+    if(!filePath) {
+        return;
+    }
+    fs.exists(filePath, (exist) => {
+        if(!exist) {
+            fs.writeFile(filePath, '', 'utf8', () => {
+                console.info('文件 [ ' + filePath + ' ] 新建成功')
+            })
+        }
+    })
+
+}
+
+
+
 var handler = {
     handle: function(err, args, config) {
         console.info("开始处理")
@@ -15,8 +31,15 @@ var handler = {
             console.info('开始处理报错了: ' + err);
             return;
         }
-        truncateFile(config.errorLogPath)
-        truncateFile(config.outputPath)
+       createFileIfDontExist(config.errorLogPath)
+       createFileIfDontExist(config.outputPath)
+       createFileIfDontExist(config.logOutPut)
+
+        if(config.clearFile) {
+           truncateFile(config.errorLogPath)
+           truncateFile(config.outputPath)
+           truncateFile(config.logOutPut)
+        }
 
     }
 
