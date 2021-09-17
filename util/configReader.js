@@ -8,7 +8,7 @@ var configReader = {
         const configStr = fs.readFileSync(configFilePath, 'utf-8')
         const config = configStr ? JSON.parse(configStr) : {}
         handleCommand(config)
-        return config;
+        return config
     }
 
 }
