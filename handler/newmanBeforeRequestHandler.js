@@ -14,7 +14,7 @@ var handler = {
             }
         }
 
-        var str = '正在执行 ' + param
+        var str = '开始校验第 [' + config.curIdx + '] 个门店: ' + param
         if (err) {
             consoleLogger.error(str  + " 报错, " + err)
         } else {

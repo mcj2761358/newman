@@ -98,9 +98,10 @@ function fix(msg, config) {
 
     }
     request(option, function(error, response, body) {
-        if(response.statusCode !== 200) {
-           console.info('fix url [ ' + url + ' ] 执行失败 [ ' + response.statusCode + ' ]')
-           return;
+        const statusCode = response && response.statusCode
+        if(!statusCode || statusCode !== 200) {
+            console.info('fix url [ ' + url + ' ] 执行失败 [ ' + (statusCode ? response.statusCode : response) + ' ]')
+            return;
         }
         const contentType = response.headers['content-type']
         if(contentType.indexOf('json') < 0) {
@@ -141,9 +142,9 @@ var handler = {
 
         // 校验出错打印红色，校验成功打印绿色
         if(res.success === true) {
-            consoleLogger.success( args.request.body.raw + '执行结果: 校验通过')
+            consoleLogger.success('校验通过')
         } else {
-            consoleLogger.error( args.request.body.raw + '执行结果: 校验失败')
+            consoleLogger.error('校验失败')
             // 失败处理
             handlerCheckFail(res, config)
         }

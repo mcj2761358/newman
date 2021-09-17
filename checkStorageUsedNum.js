@@ -25,14 +25,19 @@ fileLogger.init(config.logOutPut)
 
 // 配置开始时间
 config.startTime = startTime
+
 // 生成 newman 执行的 option
 const newmanOption = newmanOptionGen.generate(config)
-
+var index = 0;
 /**
  * 开始执行 postman
  */
 newman.run(newmanOption).on('start', function (err, args) { startHandler.handle(err, args, config); })
-                        .on('beforeRequest', function (err, args) { beforeRequestHandler.handle(err, args, config); })
+                        .on('beforeRequest', function (err, args) {
+                            index++;
+                            config.curIdx = index;
+                            beforeRequestHandler.handle(err, args, config);
+                        })
                         .on('request', function (err, args) {
                             try {
                                 requestHandler.handle(err, args, config);
