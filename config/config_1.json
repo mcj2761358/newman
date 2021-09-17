@@ -1,8 +1,8 @@
 {
   "//": "修复的URL输出文件",
-  "outputPath": "output/response.txt",
+  "outputPath": "output/response_1.txt",
   "//": "校验出错时的输出文件",
-  "errorLogPath": "output/error.txt",
+  "errorLogPath": "output/error_1.txt",
   "//": "newman 执行时的配置项，用于生成 newman option",
   "newman": {
     "//":"从 postman 导出 collectios 的导出文件",
@@ -10,10 +10,10 @@
     "//":"从 postman 导出的环境配置文件",
     "environment": "config/env.json",
     "//":"postman run data file",
-    "iterationData": "config/storageTest.csv",
+    "iterationData": "/Users/Minutch/Downloads/数据存储1000~10999.csv",
     "iterationCount": 1
   },
-  "cookie": "JSESSIONID=ZjU1MGU0ODctMTIyZi00Yzg1LTk3NWEtYThjMTY0ZDk5MTNk; cityStation=330100; cityStationName=%E6%9D%AD%E5%B7%9E",
-  "domain": "http://localhost/launa",
+  "cookie": "JSESSIONID=NTYyMmI3MjYtNjcyYS00MjQ2LTg5ZjEtZTIyZjBjZWQzMjlk",
+  "domain": "https://www.sqzone.com/launa",
   "needFix": true
 }
